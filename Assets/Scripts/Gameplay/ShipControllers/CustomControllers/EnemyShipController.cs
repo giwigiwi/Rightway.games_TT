@@ -2,35 +2,69 @@
 using System.Collections.Generic;
 using Gameplay.ShipControllers;
 using Gameplay.ShipSystems;
+using Gameplay.Spaceships;
+using Counters;
 using UnityEngine;
 
-public class EnemyShipController : ShipController
+
+namespace Gameplay.ShipControllers.CustomControllers
 {
-
-    [SerializeField]
-    private Vector2 _fireDelay;
-
-    private bool _fire = true;
-    
-    protected override void ProcessHandling(MovementSystem movementSystem)
+    public class EnemyShipController : ShipController, IScorable
     {
-        movementSystem.LongitudinalMovement(Time.deltaTime);
-    }
+        [SerializeField]
+        private float _scoreByDestroy;
 
-    protected override void ProcessFire(WeaponSystem fireSystem)
-    {
-        if (!_fire)
-            return;
+        [SerializeField]
+        private Vector2 _fireDelay;
 
-        fireSystem.TriggerFire();
-        StartCoroutine(FireDelay(Random.Range(_fireDelay.x, _fireDelay.y)));
-    }
+        private bool _fire = true;
+        private ScoreCounter _scoreCounter;
+
+        public float ScoreForDestroy => _scoreByDestroy;
+        public ScoreCounter ScoreCounter
+        {
+            get
+            {
+                return _scoreCounter;
+            }
+            set
+            {
+                _scoreCounter = value;
+            }
+        }
+
+        public void AddScore(float score)
+        {
+            ScoreCounter.Score += score;
+        }
+
+        protected override void ProcessHandling(MovementSystem movementSystem)
+        {
+            movementSystem.LongitudinalMovement(Time.deltaTime);
+        }
+
+        protected override void ProcessFire(WeaponSystem fireSystem)
+        {
+            if (!_fire)
+                return;
+
+            fireSystem.TriggerFire();
+            StartCoroutine(FireDelay(Random.Range(_fireDelay.x, _fireDelay.y)));
+        }
+
+        private IEnumerator FireDelay(float delay)
+        {
+            _fire = false;
+            yield return new WaitForSeconds(delay);
+            _fire = true;
+
+        }
+
+        private void OnDestroy()
+        {
+            AddScore(ScoreForDestroy);
+        }
 
 
-    private IEnumerator FireDelay(float delay)
-    {
-        _fire = false;
-        yield return new WaitForSeconds(delay);
-        _fire = true;
     }
 }

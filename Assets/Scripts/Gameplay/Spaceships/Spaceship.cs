@@ -8,22 +8,24 @@ namespace Gameplay.Spaceships
 {
     public class Spaceship : MonoBehaviour, ISpaceship, IDamagable
     {
+
         [SerializeField]
         private ShipController _shipController;
-    
+
         [SerializeField]
         private MovementSystem _movementSystem;
-    
+
         [SerializeField]
         private WeaponSystem _weaponSystem;
 
         [SerializeField]
         private UnitBattleIdentity _battleIdentity;
 
+        [SerializeField]
+        private float _healthPower = 100;
 
         public MovementSystem MovementSystem => _movementSystem;
         public WeaponSystem WeaponSystem => _weaponSystem;
-
         public UnitBattleIdentity BattleIdentity => _battleIdentity;
 
         private void Start()
@@ -34,7 +36,12 @@ namespace Gameplay.Spaceships
 
         public void ApplyDamage(IDamageDealer damageDealer)
         {
-            Destroy(gameObject);
+            _healthPower -= damageDealer.Damage;
+            if (_healthPower <= 0)
+            {
+                _healthPower = 0;
+                Destroy(gameObject);
+            }
         }
 
     }

@@ -2,6 +2,8 @@
 using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using Counters;
+using Gameplay.Spaceships;
 
 namespace Gameplay.Spawners
 {
@@ -10,18 +12,23 @@ namespace Gameplay.Spawners
 
         [SerializeField]
         private GameObject _object;
-        
+
         [SerializeField]
         private Transform _parent;
-        
+
         [SerializeField]
         private Vector2 _spawnPeriodRange;
-        
+
         [SerializeField]
         private Vector2 _spawnDelayRange;
 
         [SerializeField]
         private bool _autoStart = true;
+        [SerializeField]
+        private bool _addScoreCounter = true;
+
+        [SerializeField]
+        private ScoreCounter _scoreCounter;
 
 
         private void Start()
@@ -45,10 +52,17 @@ namespace Gameplay.Spawners
         private IEnumerator Spawn()
         {
             yield return new WaitForSeconds(Random.Range(_spawnDelayRange.x, _spawnDelayRange.y));
-            
+
             while (true)
             {
-                Instantiate(_object, transform.position, transform.rotation, _parent);
+                if (_addScoreCounter)
+                {
+                    Instantiate(_object, transform.position, transform.rotation, _parent).GetComponent<IScorable>().ScoreCounter = _scoreCounter; 
+                }
+                else
+                {
+                    Instantiate(_object, transform.position, transform.rotation, _parent);
+                }
                 yield return new WaitForSeconds(Random.Range(_spawnPeriodRange.x, _spawnPeriodRange.y));
             }
         }

@@ -86,6 +86,7 @@ MonoBehaviour:
   _movementSystem: {fileID: 590599124999967756}
   _weaponSystem: {fileID: 590599124999967758}
   _battleIdentity: 2
+  _healthPower: 100
 --- !u!114 &590599124999967860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -98,6 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b5f87a4344021e4eb1dda9c44d37fc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _scoreByDestroy: 100
   _fireDelay: {x: 1, y: 2}
 --- !u!114 &590599124999967756
 MonoBehaviour:
@@ -232,6 +234,8 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -243,6 +247,7 @@ SpriteRenderer:
   m_ProbeAnchor: {fileID: 0}
   m_LightProbeVolumeOverride: {fileID: 0}
   m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
   m_PreserveUVs: 0
   m_IgnoreNormalsForChartDetection: 0
   m_ImportantGI: 0
@@ -280,6 +285,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2543782742246006013, guid: dcb1bf35503a2d340ab0e1e9d82bca8b,
         type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2543782742246006013, guid: dcb1bf35503a2d340ab0e1e9d82bca8b,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -295,6 +305,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2543782742246006013, guid: dcb1bf35503a2d340ab0e1e9d82bca8b,
         type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2543782742246006013, guid: dcb1bf35503a2d340ab0e1e9d82bca8b,
+        type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
@@ -306,16 +321,6 @@ PrefabInstance:
     - target: {fileID: 2543782742246006013, guid: dcb1bf35503a2d340ab0e1e9d82bca8b,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2543782742246006013, guid: dcb1bf35503a2d340ab0e1e9d82bca8b,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2543782742246006013, guid: dcb1bf35503a2d340ab0e1e9d82bca8b,
-        type: 3}
-      propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2543782742246006013, guid: dcb1bf35503a2d340ab0e1e9d82bca8b,
