@@ -3,6 +3,7 @@ using Gameplay.ShipControllers;
 using Gameplay.ShipSystems;
 using Gameplay.Weapons;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Gameplay.Spaceships
 {
@@ -24,24 +25,35 @@ namespace Gameplay.Spaceships
         [SerializeField]
         private float _healthPower = 100;
 
+        public UnityAction<float> OnHPChanged;
+
         public MovementSystem MovementSystem => _movementSystem;
         public WeaponSystem WeaponSystem => _weaponSystem;
         public UnitBattleIdentity BattleIdentity => _battleIdentity;
+        public float HealthPower
+        {
+            get
+            {
+                return _healthPower;
+            }
+            set
+            {
+                _healthPower = value;
+            }
+        }
 
         private void Start()
         {
             _shipController.Init(this);
+            OnHPChanged += _shipController.ManageHP;
+            OnHPChanged?.Invoke(HealthPower);
             _weaponSystem.Init(_battleIdentity);
         }
 
         public void ApplyDamage(IDamageDealer damageDealer)
         {
-            _healthPower -= damageDealer.Damage;
-            if (_healthPower <= 0)
-            {
-                _healthPower = 0;
-                Destroy(gameObject);
-            }
+            HealthPower -= damageDealer.Damage;
+            OnHPChanged?.Invoke(HealthPower);
         }
 
     }

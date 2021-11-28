@@ -38,6 +38,15 @@ namespace Gameplay.ShipControllers.CustomControllers
             ScoreCounter.Score += score;
         }
 
+        public override void ManageHP(float hp)
+        {
+            if (hp <= 0)
+            {
+                AddScore(ScoreForDestroy);
+                Destroy(gameObject);
+            }
+        }
+
         protected override void ProcessHandling(MovementSystem movementSystem)
         {
             movementSystem.LongitudinalMovement(Time.deltaTime);
@@ -59,12 +68,6 @@ namespace Gameplay.ShipControllers.CustomControllers
             _fire = true;
 
         }
-
-        private void OnDestroy()
-        {
-            AddScore(ScoreForDestroy);
-        }
-
 
     }
 }
