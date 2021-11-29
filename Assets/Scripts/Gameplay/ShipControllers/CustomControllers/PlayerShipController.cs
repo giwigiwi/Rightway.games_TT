@@ -8,7 +8,9 @@ namespace Gameplay.ShipControllers.CustomControllers
 {
     public class PlayerShipController : ShipController
     {
+
         public UnityEvent<float> OnHPChanged;
+        public UnityEvent OnPlayerDead;
 
 
         public override void ManageHP(float hp)
@@ -16,9 +18,11 @@ namespace Gameplay.ShipControllers.CustomControllers
             OnHPChanged?.Invoke(hp);
             if (hp <= 0)
             {
-                Destroy(gameObject);
+                OnPlayerDead?.Invoke();
             }
         }
+
+
 
         protected override void ProcessHandling(MovementSystem movementSystem)
         {
@@ -45,7 +49,6 @@ namespace Gameplay.ShipControllers.CustomControllers
                 bonus.ApplyBonus(GetComponent<ISpaceship>());
             }
         }
-
 
     }
 }
