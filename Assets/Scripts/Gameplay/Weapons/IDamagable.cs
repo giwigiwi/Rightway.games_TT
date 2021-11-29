@@ -6,7 +6,6 @@ namespace Gameplay.Weapons
     {
 
         UnitBattleIdentity BattleIdentity { get; }
-        float HealthPower { get; set; }
 
         void ApplyDamage(IDamageDealer damageDealer);
 

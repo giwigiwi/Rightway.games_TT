@@ -30,6 +30,10 @@ namespace Gameplay.Spaceships
         public MovementSystem MovementSystem => _movementSystem;
         public WeaponSystem WeaponSystem => _weaponSystem;
         public UnitBattleIdentity BattleIdentity => _battleIdentity;
+
+        /// <summary>
+        /// Ship's health power amount. When changing invoke OnHPChanged(float) event;
+        /// </summary>
         public float HealthPower
         {
             get
@@ -39,6 +43,7 @@ namespace Gameplay.Spaceships
             set
             {
                 _healthPower = value;
+                OnHPChanged?.Invoke(_healthPower);
             }
         }
 
@@ -53,7 +58,6 @@ namespace Gameplay.Spaceships
         public void ApplyDamage(IDamageDealer damageDealer)
         {
             HealthPower -= damageDealer.Damage;
-            OnHPChanged?.Invoke(HealthPower);
         }
 
     }

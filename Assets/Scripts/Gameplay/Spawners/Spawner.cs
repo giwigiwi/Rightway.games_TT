@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
-using Counters;
+using Gameplay.Counters;
 using Gameplay.Spaceships;
 
 namespace Gameplay.Spawners
@@ -48,16 +48,17 @@ namespace Gameplay.Spawners
             StopAllCoroutines();
         }
 
-
         private IEnumerator Spawn()
         {
             yield return new WaitForSeconds(Random.Range(_spawnDelayRange.x, _spawnDelayRange.y));
-
             while (true)
             {
+                /*
+                If spawn object implementing IScorable - adding link to ScoreCounter to it;
+                */
                 if (_addScoreCounter)
                 {
-                    Instantiate(_object, transform.position, transform.rotation, _parent).GetComponent<IScorable>().ScoreCounter = _scoreCounter; 
+                    Instantiate(_object, transform.position, transform.rotation, _parent).GetComponent<IScorable>().ScoreCounter = _scoreCounter;
                 }
                 else
                 {

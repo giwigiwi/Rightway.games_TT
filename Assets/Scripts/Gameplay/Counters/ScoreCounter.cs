@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Counters
+namespace Gameplay.Counters
 {
     public class ScoreCounter : MonoBehaviour
     {
@@ -11,6 +11,9 @@ namespace Counters
         [SerializeField]
         private float _score;
 
+        /// <summary>
+        /// Score summary for deatroing enemies
+        /// </summary>
         public float Score
         {
             get

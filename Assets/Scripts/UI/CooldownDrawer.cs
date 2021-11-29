@@ -4,19 +4,20 @@ using UnityEngine.UI;
 
 namespace UI.Drawer
 {
-    public class ScoreDrawer : MonoBehaviour
+    public class CooldownDrawer : MonoBehaviour
     {
         [SerializeField]
-        private Text _scoreText;
+        private Text _cooldownText;
 
         /// <summary>
         /// Drawn a cooldown between shot amount on UI
         /// </summary>
         /// <param name="cooldown"></param>
-        public void DrawScore(float score)
+        public void DrawAverageCooldown(float cooldown)
         {
-            _scoreText.text = score.ToString();
+            _cooldownText.text = cooldown.ToString("0.000");
         }
+
 
     }
 }

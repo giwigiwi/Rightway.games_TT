@@ -1,12 +1,24 @@
 ﻿using Gameplay.ShipSystems;
 using UnityEngine;
 using UnityEngine.Events;
+using Gameplay.Bonuses;
+using Gameplay.Spaceships;
 
 namespace Gameplay.ShipControllers.CustomControllers
 {
     public class PlayerShipController : ShipController
     {
         public UnityEvent<float> OnHPChanged;
+
+
+        public override void ManageHP(float hp)
+        {
+            OnHPChanged?.Invoke(hp);
+            if (hp <= 0)
+            {
+                Destroy(gameObject);
+            }
+        }
 
         protected override void ProcessHandling(MovementSystem movementSystem)
         {
@@ -21,14 +33,19 @@ namespace Gameplay.ShipControllers.CustomControllers
             }
         }
 
-        public override void ManageHP(float hp)
+        /// <summary>
+        /// Check collision. If collide with bonus - applied it;
+        /// </summary>
+        /// <param name="other"></param>
+        private void OnCollisionEnter2D(Collision2D other)
         {
-            OnHPChanged?.Invoke(hp);
-            if (hp <= 0)
+            Bonus bonus;
+            if (other.gameObject.TryGetComponent<Bonus>(out bonus))
             {
-                Destroy(gameObject);
+                bonus.ApplyBonus(GetComponent<ISpaceship>());
             }
         }
+
 
     }
 }

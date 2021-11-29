@@ -11,6 +11,10 @@ namespace UI.Drawer
         private float _defaultValue;
         private bool _init = false;
 
+        /// <summary>
+        /// Drawn a hp amount on UI as progress bar;
+        /// </summary>
+        /// <param name="cooldown"></param>
         public void DrawHP(float hp)
         {
             if(!_init)

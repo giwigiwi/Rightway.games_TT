@@ -9,5 +9,10 @@ namespace Gameplay.Spaceships
         MovementSystem MovementSystem { get; }
         WeaponSystem WeaponSystem { get; }
 
+        /// <summary>
+        /// Ship's health power amount;
+        /// </summary>
+        float HealthPower { get; set; }
+
     }
 }

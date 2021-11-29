@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using Gameplay.ShipControllers;
 using Gameplay.ShipSystems;
 using Gameplay.Spaceships;
-using Counters;
+using Gameplay.Counters;
+using Gameplay.Bonuses;
+using Random = UnityEngine.Random;
 using UnityEngine;
+
 
 
 namespace Gameplay.ShipControllers.CustomControllers
@@ -16,6 +19,9 @@ namespace Gameplay.ShipControllers.CustomControllers
 
         [SerializeField]
         private Vector2 _fireDelay;
+
+        [SerializeField]
+        private List<Bonus> bonuses;
 
         private bool _fire = true;
         private ScoreCounter _scoreCounter;
@@ -43,6 +49,7 @@ namespace Gameplay.ShipControllers.CustomControllers
             if (hp <= 0)
             {
                 AddScore(ScoreForDestroy);
+                SpawnBonus(bonuses[Random.Range(0, bonuses.Count)]);
                 Destroy(gameObject);
             }
         }
@@ -66,7 +73,15 @@ namespace Gameplay.ShipControllers.CustomControllers
             _fire = false;
             yield return new WaitForSeconds(delay);
             _fire = true;
+        }
 
+        /// <summary>
+        /// Spawn a bonus;
+        /// </summary>
+        /// <param name="bonus">bonus for spawn</param>
+        private void SpawnBonus(Bonus bonus)
+        {
+            Instantiate(bonus, transform.position, transform.rotation);
         }
 
     }
